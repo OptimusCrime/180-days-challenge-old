@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+  ###############################################
+  #                     App                     #
+  ###############################################
+
+  app:
+    container_name: "180_app"
+    depends_on:
+      - server
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "8001:80"
+    links:
+      - server
+    volumes:
+      - ./docker/logs/app:/var/log/180days
+      - ./app:/usr/local/apache2/htdocs/
+
+  ###############################################
+  #                    Server                   #
+  ###############################################
+
+  server:
+    container_name: "180_server"
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "1349:1349"
+    volumes:
+      - ./docker/logs/server:/var/log/180days
+      - ./server:/var/www/html
+      - ./docker/files/:/var/www/sqlite
