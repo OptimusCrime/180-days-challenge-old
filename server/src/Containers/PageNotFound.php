@@ -1,10 +1,9 @@
 <?php
 namespace OptimusCrime\Containers;
 
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Psr\Http\Message\ServerRequestInterface as Request;
-
-use \Slim\Container;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Container;
 
 class PageNotFound
 {

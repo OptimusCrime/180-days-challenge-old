@@ -21,6 +21,9 @@ return [
             'target' => 80
         ],
 
+        'cookie_key' => '180_challenge',
+        'cookie_value' => 'myrandomc2ookiepayload',
+
         'auth' => '$2y$10$EBVb8yJDKN6/E9M/O8nQQ.DoA3t/UIPxn6VoXlxs65xWa2zHAm/tK', // lorem
     ],
 ];

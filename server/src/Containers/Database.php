@@ -1,10 +1,10 @@
 <?php
 namespace OptimusCrime\Containers;
 
-use \Slim\Container;
-use \Illuminate\Database\Capsule\Manager;
-use \Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\ConnectionResolver;
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\ConnectionResolver;
+use Slim\Container;
 
 class Database
 {

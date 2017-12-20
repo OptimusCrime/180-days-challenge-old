@@ -1,10 +1,10 @@
 <?php
 namespace OptimusCrime\Endpoints;
 
-use OptimusCrime\Controllers\GetStatus;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Psr\Http\Message\ServerRequestInterface as Request;
+use OptimusCrime\Controllers\GetStatus;
 
 class Status extends Base
 {

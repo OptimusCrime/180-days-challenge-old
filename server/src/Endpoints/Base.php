@@ -1,8 +1,8 @@
 <?php
 namespace OptimusCrime\Endpoints;
 
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Slim\Container;
+use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Container;
 
 class Base
 {

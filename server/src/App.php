@@ -1,7 +1,7 @@
 <?php
 namespace OptimusCrime;
 
-use \Slim\App as Slim;
+use Slim\App as Slim;
 
 class App
 {
@@ -27,6 +27,7 @@ class App
         $this->app->get('/status', '\OptimusCrime\Endpoints\Status:get');
         $this->app->get('/entry', '\OptimusCrime\Endpoints\Entry:get');
         $this->app->put('/entry', '\OptimusCrime\Endpoints\Entry:put');
+        $this->app->post('/auth', '\OptimusCrime\Endpoints\Auth:post');
     }
 
     private function dependencies()

@@ -1,7 +1,7 @@
 <?php
 namespace OptimusCrime\Containers;
 
-use \Slim\Container;
+use Slim\Container;
 
 class InternalServerError
 {
