@@ -1,13 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const APP_SRC = path.resolve(__dirname, './src');
 
 module.exports = {
   entry: [
     'babel-polyfill',
-    path.join(APP_SRC, './index.js')
+    path.join(APP_SRC, 'index.js')
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -30,7 +31,17 @@ module.exports = {
         ]
       },
       {
-        // Like .css execept that we run the file through a less transpiler first
+        test: /\.css$/,
+        loader: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
+        ]
+      },
+      {
         test: /\.less$/,
         loader: [
           {
@@ -46,9 +57,12 @@ module.exports = {
             loader: 'less-loader',
             options: {
               sourceMap: true,
-            },
-          },
-        ],
+              includePaths: [
+                path.join(APP_SRC, 'node_modules')
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.(png|gif|jpe?g)$/,
@@ -79,10 +93,10 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-        minChunks: module => (
-          module.context && module.context.indexOf('node_modules') !== -1
-        ),
+      minChunks: module => (
+        module.context && module.context.indexOf('node_modules') !== -1
+      ),
     }),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
   ]
-}
+};
