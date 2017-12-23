@@ -30,6 +30,27 @@ module.exports = {
         ]
       },
       {
+        // Like .css execept that we run the file through a less transpiler first
+        test: /\.less$/,
+        loader: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+      {
         test: /\.(png|gif|jpe?g)$/,
         use: [
           {
@@ -39,7 +60,14 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?[a-z0-9=&.]+)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      },
     ]
   },
   devServer: {

@@ -44,11 +44,11 @@ composer-migrate:
 composer-install:
 	@docker-compose run --rm $(SERVER_SERVICE_NAME) cd server && composer install
 
-npm-install:
-	@docker-compose run --rm $(APP_SERVICE_NAME) npm install
+yarn-install:
+	@docker-compose run --rm $(APP_SERVICE_NAME) yarn install
 
-npm-build:
-	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script build
+yarn-build:
+	@docker-compose run --rm $(APP_SERVICE_NAME) yarn run build
 
-npm-watch:
-	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script watch
+yarn-watch:
+	@docker-compose run --rm $(APP_SERVICE_NAME) yarn run watch
