@@ -1,16 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
+import MainContainer from './containers/main/main-container';
+import configureStore from './redux/configureStore';
 
 import './style.less';
 
-import Derp from './Components/derp';
+const preloadedState = window.__INITIAL_STATE__;
 
+const store = configureStore(preloadedState);
 
-const render = () => {
-  ReactDOM.render(
-    <Derp />,
-    document.getElementById('app')
-  )
-};
-
-render();
+ReactDOM.render((
+    <Provider store={store}>
+      <MainContainer/>
+    </Provider>
+  ), document.getElementById('app')
+);
