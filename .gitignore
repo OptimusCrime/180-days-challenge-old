@@ -2,3 +2,4 @@
 .idea
 vendor
 app/node_modules
+server/config/settings.php
