@@ -8,18 +8,30 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class Auth extends Base
 {
-    public function post(Request $request, Response $response)
-    {
-        if (!password_verify($request->getQueryParam('pw', null), $this->container->get('settings')['auth'])) {
-            return $response->withStatus(401);
-        }
+  public function get(Request $request, Response $response)
+  {
+    $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
 
-        $cookieKey = $this->container->get('settings')['cookie_key'];
-        $cookieValue = $this->container->get('settings')['cookie_value'];
+    return $this->output($response, [
+      'status' => $cookieValue === $this->container->get('settings')['cookie_value']
+    ]);
+  }
 
-        return $response = FigResponseCookies::set($response, SetCookie::create($cookieKey)
-            ->withValue($cookieValue)
-        );
-    }
+  public function post(Request $request, Response $response)
+  {
+      $payload = json_decode($request->getBody()->getContents(), true);
+      if (!isset($payload['pw']) or !password_verify($payload['pw'], $this->container->get('settings')['auth'])) {
+          return $response->withStatus(401);
+      }
+
+      $cookieKey = $this->container->get('settings')['cookie_key'];
+      $cookieValue = $this->container->get('settings')['cookie_value'];
+
+      return $response = FigResponseCookies::set($response, SetCookie::create($cookieKey)
+        ->withValue($cookieValue)
+        ->withPath('/')
+        ->rememberForever()
+      );
+  }
 }
 

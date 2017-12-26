@@ -5,6 +5,8 @@ use OptimusCrime\Models\Entry;
 
 class GetStatus
 {
+    const DISPLAY_DATE_FORMAT = 'j. M Y';
+
     private $settings;
 
     public function __construct($settings)
@@ -20,14 +22,17 @@ class GetStatus
         $dateEnd = $settings['date_end'];
 
         $entries = Entry::count();
+
         $daysSinceStart = static::daysBetween($dateStart);
+        $daysRemaining = static::daysBetween($dateEnd, null);
 
         $scheduleLimit = static::calculateScheduleLimit($dateStart, $dateEnd, $daysSinceStart, $settings['target']);
 
         return [
-            'date_start' => $dateStart,
-            'date_end' => $dateEnd,
+            'date_start' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateStart)),
+            'date_end' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateEnd)),
             'days_since_start' => $daysSinceStart,
+            'days_remaining' => $daysRemaining,
             'target' => $settings['target'],
             'entries' => $entries,
             'on_schedule' => $scheduleLimit <= $entries,

@@ -19,6 +19,7 @@ class PutEntry
         $entry = new Entry();
         $entry->comment = $this->comment;
         $entry->added = Carbon::now();
+
         return $entry->save();
     }
 }

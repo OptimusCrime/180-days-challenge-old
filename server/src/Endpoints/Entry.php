@@ -19,9 +19,15 @@ class Entry extends Base
 
     public function put(Request $request, Response $response)
     {
+        $payload = json_decode($request->getBody()->getContents(), true);
+        $comment = null;
+        if (isset($payload['comment'])) {
+            $comment = $payload['comment'];
+        }
+
         $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
         if ($cookieValue === $this->container->get('settings')['cookie_value']) {
-            $controller = new PutEntry($request->getQueryParam('comment', null));
+            $controller = new PutEntry($comment);
 
             return $this->output($response, [
                 'status' => $controller->run()

@@ -8,6 +8,10 @@
     ],
     "react"
   ],
+  "plugins": [
+    "transform-runtime",
+    "transform-object-rest-spread"
+  ],
   "env": {
     "test": {
       "plugins": [

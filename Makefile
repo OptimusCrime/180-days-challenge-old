@@ -39,10 +39,10 @@ stop:
 	@docker-compose stop
 
 composer-migrate:
-	@docker-compose run --rm $(SERVER_SERVICE_NAME) cd server && vendor/bin/phinx migrate -c docker/phinx.yml
+	@docker-compose run --rm $(SERVER_SERVICE_NAME) vendor/bin/phinx migrate -c config/phinx.php
 
 composer-install:
-	@docker-compose run --rm $(SERVER_SERVICE_NAME) cd server && composer install
+	@docker-compose run --rm $(SERVER_SERVICE_NAME) composer install
 
 yarn-install:
 	@docker-compose run --rm $(APP_SERVICE_NAME) yarn install

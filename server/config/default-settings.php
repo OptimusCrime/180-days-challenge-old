@@ -18,7 +18,7 @@ return [
             'date_end' => '2017-12-31',
 
             // The target to reach within the duration of the challenge
-            'target' => 80
+            'target' => 24
         ],
 
         'cookie_key' => '180_challenge',
