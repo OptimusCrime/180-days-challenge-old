@@ -15,5 +15,9 @@ RUN a2enmod headers
 
 RUN apt-get update && apt-get install -y zlib1g-dev sqlite3
 
+# Userland
+RUN usermod -u 1001 www-data
+RUN groupmod -g 1001 www-data
+
 # Install PHP extensions
 RUN docker-php-ext-install zip
