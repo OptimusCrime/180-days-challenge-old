@@ -23,7 +23,7 @@ class GetStatus
 
         $entries = Entry::count();
 
-        $daysSinceStart = static::daysBetween($dateStart);
+        $daysSinceStart = static::daysBetween($dateStart) + 1;
         $daysRemaining = static::daysBetween($dateEnd, null);
 
         $scheduleLimit = static::calculateScheduleLimit($dateStart, $dateEnd, $daysSinceStart, $settings['target']);
