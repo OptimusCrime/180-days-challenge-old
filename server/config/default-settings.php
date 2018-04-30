@@ -15,7 +15,7 @@ return [
         'challenge' => [
             // Dates are on the format yyyy-mm-dd
             'date_start' => '2017-01-01',
-            'date_end' => '2017-12-31',
+            'date_end' => '2019-12-31',
 
             // The target to reach within the duration of the challenge
             'target' => 24
