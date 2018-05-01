@@ -32,7 +32,6 @@ class ModalAuthContainer extends Component {
         open={true}
         onClose={() => this.props.toggleDisplayModalAuth()}
         size='small'
-        className='modal-container modal-auth-container'
       >
         <Header icon='lock' content='Authenticate' />
         <Modal.Content>

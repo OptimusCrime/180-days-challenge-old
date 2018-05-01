@@ -32,8 +32,8 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "rxjs": "^5.4.3",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.77.1",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.4",
     "webpack-merge": "^4.1.0"

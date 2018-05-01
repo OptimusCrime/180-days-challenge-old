@@ -31,10 +31,9 @@ class ModalEntryContainer extends Component {
       <Modal
         open={true}
         onClose={() => this.props.toggleDisplayModalEntry()}
-        size='small'
         className='modal-container modal-auth-container'
       >
-        <Header icon='lock' content='Add entry' />
+        <Modal.Header icon='lock' content='Add entry' />
         <Modal.Content>
           <Input
             placeholder='Climbing'
