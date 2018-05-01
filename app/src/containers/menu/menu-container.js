@@ -26,7 +26,6 @@ const getAddOrAuthMenuItem = (fetchDone, fetchStarted, fetchFinished, loggedIn, 
     return (
       <Menu.Item
         icon={true}
-        position='right'
         onClick={() => _toggleDisplayModalAuth()}
       >
         <Icon name='lock' />

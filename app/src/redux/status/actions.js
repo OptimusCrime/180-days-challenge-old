@@ -1,10 +1,10 @@
 import {
   STATUS_FETCH_STARTED,
   STATUS_FETCH_FINISHED
-} from './constants';
+} from './constants'
 import {
   fetchStatusRequest
-} from '../../api';
+} from '../../api'
 
 export function fetchInitialStatus() {
   return (dispatch) => {

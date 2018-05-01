@@ -6,7 +6,7 @@ import {
   ENTRY_UPDATE_STARTED,
   ENTRY_UPDATE_FINISHED,
   ENTRY_UPDATE_FAILED,
-} from './constants';
+} from './constants'
 
 const defaultState = {
   fetchDone: false,

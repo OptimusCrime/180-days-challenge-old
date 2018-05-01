@@ -1,9 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import 'babel-polyfill';
 
-import MainContainer from './containers/main-container';
-import configureStore from './redux/configureStore';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
+import MainContainer from './containers/main-container'
+import configureStore from './redux/configureStore'
 
 import './style.less';
 

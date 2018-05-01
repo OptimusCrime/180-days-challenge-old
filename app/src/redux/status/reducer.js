@@ -2,7 +2,7 @@ import {
   STATUS_FETCH_STARTED,
   STATUS_FETCH_FINISHED,
   STATUS_FETCH_FAILED
-} from './constants';
+} from './constants'
 
 const defaultState = {
   fetchDone: false,

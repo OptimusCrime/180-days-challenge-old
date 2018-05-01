@@ -1,8 +1,31 @@
-import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
 
+const months = {
+  'Jan': 1,
+  'Feb': 2,
+  'Mar': 3,
+  'Apr': 4,
+  'May': 5,
+  'Jun': 6,
+  'Jul': 7,
+  'Aug': 8,
+  'Sep': 9,
+  'Oct': 10,
+  'Nov': 11,
+  'Dec': 12,
+};
+
 const dateTimeStringToObj = (str) => {
-  return parse(str.split('@')[0].trim());
+  return parseDate(str.split('@')[0].trim());
+};
+
+const parseDate = (str) => {
+  const dateSplit = str.split(' ');
+  const date = parseInt(dateSplit[0].replace('.', ''));
+  const month = parseInt(months[dateSplit[1]]);
+  const year = parseInt(dateSplit[2]);
+
+  return new Date(year, month, date);
 };
 
 const sortDateValues = (first, second) => {
@@ -17,10 +40,10 @@ const sortDateValues = (first, second) => {
 };
 
 const parseEntries = (entries, date_start) => {
-  const parsedDateStart = dateTimeStringToObj(date_start);
+  const parsedDateStart = parseDate(date_start);
 
   return entries.map(entry => {
-    return differenceInDays(parse(entry.added), parsedDateStart);
+    return differenceInDays(dateTimeStringToObj(entry.added), parsedDateStart);
   }).sort((first, second) => sortDateValues(first, second));
 };
 

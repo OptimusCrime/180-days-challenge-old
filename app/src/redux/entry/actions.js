@@ -5,15 +5,15 @@ import {
   ENTRY_UPDATE_STARTED,
   ENTRY_UPDATE_FINISHED,
   ENTRY_UPDATE_FAILED
-} from './constants';
+} from './constants'
 import {
   fetchEntryRequest,
   addEntryRequest
-} from '../../api';
+} from '../../api'
 import {
   ENTRY_HIDE_DISPLAY_MODAL
-} from '../display/constants';
-import { fetchUpdatedStatus } from "../status/actions";
+} from '../display/constants'
+import { fetchUpdatedStatus } from "../status/actions"
 
 const HTTP_200_CODE = 200;
 const UNKNOWN_ENTRY_UPDATE_ERROR = 'UNKNOWN_ENTRY_UPDATE_ERROR';

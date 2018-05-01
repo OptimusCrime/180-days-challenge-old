@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '/',
     filename: '[name].[chunkhash].js',
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   resolve: {
     extensions: ['.js', '.json', '.jsx']
   },

@@ -9,7 +9,7 @@ import {
   UPDATE_ENTRY_VALUE,
 
   TOGGLE_SHOW_GRAPH
-} from './constants';
+} from './constants'
 
 const defaultState = {
   showModalAuth: false,
