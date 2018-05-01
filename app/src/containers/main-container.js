@@ -7,10 +7,27 @@ import MenuContainer from './menu/menu-container';
 import ModalAuthContainer from './modal-auth/modal-auth-container';
 import ModalEntryContainer from './modal-entry/modal-entry-container';
 import StatusContainer from './status/status-container';
+import GraphContainer from './graph/graph-container';
 
 import { fetchAuth } from '../redux/auth/actions';
 import { fetchInitialEntry } from '../redux/entry/actions';
 import { fetchInitialStatus } from '../redux/status/actions';
+
+const getMainBodyContainers = (showGraph) => {
+  if (showGraph) {
+    return (
+      <GraphContainer />
+    );
+  }
+
+  return (
+    <div>
+      <StatusContainer />
+      <InfoContainer />
+      <EntryContainer />
+    </div>
+  );
+};
 
 class MainContainer extends Component {
 
@@ -28,7 +45,8 @@ class MainContainer extends Component {
 
     const {
       showModalAuth,
-      showModalEntry
+      showModalEntry,
+      showGraph
     } = this.props;
 
     return (
@@ -36,9 +54,7 @@ class MainContainer extends Component {
         {showModalAuth && <ModalAuthContainer />}
         {showModalEntry && <ModalEntryContainer />}
         <MenuContainer />
-        <StatusContainer />
-        <InfoContainer />
-        <EntryContainer />
+        {getMainBodyContainers(showGraph)}
       </div>
     );
   }
@@ -46,7 +62,8 @@ class MainContainer extends Component {
 
 const mapStateToProps = ({ display }) => ({
   showModalAuth: display.showModalAuth,
-  showModalEntry: display.showModalEntry
+  showModalEntry: display.showModalEntry,
+  showGraph: display.showGraph
 });
 
 const mapDispatchToProps = {

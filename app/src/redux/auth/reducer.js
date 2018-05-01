@@ -12,7 +12,7 @@ const defaultState = {
   fetchStarted: false,
   fetchFinished: false,
   fetchFailed: false,
-  status: false,
+  loggedIn: false,
 
   updateStarted: false,
   updateFinished: false,
@@ -32,7 +32,7 @@ const auth = (state = defaultState, action) => {
     case AUTH_FETCH_FINISHED:
       return {
         ...state,
-        status: action.status,
+        loggedIn: action.status,
         fetchDone: true,
         fetchStarted: false,
         fetchFinished: true,
@@ -53,7 +53,7 @@ const auth = (state = defaultState, action) => {
         updateFinished: true,
         updateFailed: false,
 
-        status: true
+        loggedIn: true
       };
 
   case AUTH_UPDATE_FAILED:

@@ -14,11 +14,11 @@ return [
         // Challenge specific settings
         'challenge' => [
             // Dates are on the format yyyy-mm-dd
-            'date_start' => '2017-01-01',
-            'date_end' => '2019-12-31',
+            'date_start' => '2018-01-01',
+            'date_end' => '2018-06-30',
 
             // The target to reach within the duration of the challenge
-            'target' => 24
+            'target' => 90
         ],
 
         'cookie_key' => '180_challenge',

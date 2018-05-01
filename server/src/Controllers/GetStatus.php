@@ -32,18 +32,23 @@ class GetStatus
             'date_start' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateStart)),
             'date_end' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateEnd)),
             'days_since_start' => $daysSinceStart,
-            'days_remaining' => $daysRemaining,
+            'days_remaining' => (int) $daysRemaining,
             'target' => $settings['target'],
             'entries' => $entries,
             'on_schedule' => $scheduleLimit <= $entries,
             'schedule_limit' => $scheduleLimit,
+            'tick' => static::calculateTick($dateStart, $dateEnd, $settings['target'])
         ];
+    }
+
+    private static function calculateTick($dateStart, $dateEnd, $target)
+    {
+      return ($target / static::daysBetween($dateStart, $dateEnd));
     }
 
     private static function calculateScheduleLimit($dateStart, $dateEnd, $daysSinceStart, $target)
     {
-        $duration = static::daysBetween($dateStart, $dateEnd);
-        return ($target / $duration) * $daysSinceStart;
+        return static::calculateTick($dateStart, $dateEnd, $target) * $daysSinceStart;
     }
 
     private static function daysBetween($dateStart, $dateEnd = null)
@@ -51,7 +56,7 @@ class GetStatus
         $startDateTime = new \DateTime($dateStart);
         $currentDateTime = new \DateTime($dateEnd);
 
-        return $currentDateTime->diff($startDateTime)->format('%a');
+        return (int) $currentDateTime->diff($startDateTime)->format('%a');
 
     }
 }

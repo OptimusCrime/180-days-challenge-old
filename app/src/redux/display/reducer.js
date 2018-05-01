@@ -6,12 +6,15 @@ import {
   ENTRY_HIDE_DISPLAY_MODAL,
 
   UPDATE_AUTH_VALUE,
-  UPDATE_ENTRY_VALUE
+  UPDATE_ENTRY_VALUE,
+
+  TOGGLE_SHOW_GRAPH
 } from './constants';
 
 const defaultState = {
   showModalAuth: false,
   showModalEntry: false,
+  showGraph: false,
 
   authValue: '',
   entryComment: ''
@@ -54,6 +57,12 @@ const display = (state = defaultState, action) => {
       return {
         ...state,
         entryComment: action.value
+      };
+
+    case TOGGLE_SHOW_GRAPH:
+      return {
+        ...state,
+        showGraph: !state.showGraph
       };
 
     default:

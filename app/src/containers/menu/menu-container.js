@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Icon, Menu } from 'semantic-ui-react'
 
-import { toggleDisplayModalAuth, toggleDisplayModalEntry } from '../../redux/display/actions'
+import { toggleDisplayModalAuth, toggleDisplayModalEntry, toggleShowGraph } from '../../redux/display/actions'
 import { fetchUpdatedStatus } from '../../redux/status/actions'
 import { fetchUpdatedEntry } from '../../redux/entry/actions'
 
@@ -10,13 +10,12 @@ const displayMenuItem = (fetchDone, fetchStarted, fetchFinished) => {
   return fetchDone && !fetchStarted && fetchFinished;
 };
 
-const getMenuItem = (fetchDone, fetchStarted, fetchFinished, status, _toggleDisplayModalAuth, _toggleDisplayModalEntry) => {
+const getAddOrAuthMenuItem = (fetchDone, fetchStarted, fetchFinished, loggedIn, _toggleDisplayModalAuth, _toggleDisplayModalEntry) => {
   if (displayMenuItem(fetchDone, fetchStarted, fetchFinished)) {
-    if (status) {
+    if (loggedIn) {
       return (
         <Menu.Item
           icon={true}
-          position='right'
           onClick={() => _toggleDisplayModalEntry()}
         >
           <Icon name='plus' />
@@ -38,6 +37,18 @@ const getMenuItem = (fetchDone, fetchStarted, fetchFinished, status, _toggleDisp
  return null;
 };
 
+const getIconForGraphOrList = (showGraph) => {
+  if (showGraph) {
+    return (
+      <Icon name='list' />
+    );
+  }
+
+  return (
+    <Icon name='chart line' />
+  );
+};
+
 class MenuContainer extends Component {
 
   constructor(props) {
@@ -55,24 +66,33 @@ class MenuContainer extends Component {
       fetchDone,
       fetchStarted,
       fetchFinished,
-      status
+      loggedIn,
+      showGraph
     } = this.props;
 
     return (
       <Menu fixed='top' inverted>
         <Container>
           <Menu.Item header className='app-name'>180 days challenge</Menu.Item>
-          {getMenuItem(
+          {fetchDone &&
+            <Menu.Item
+              icon={true}
+              position='right'
+              onClick={() => this.props.toggleShowGraph()}
+            >
+              {getIconForGraphOrList(showGraph)}
+            </Menu.Item>
+          }
+          {getAddOrAuthMenuItem(
             fetchDone,
             fetchStarted,
             fetchFinished,
-            status,
+            loggedIn,
             this.props.toggleDisplayModalAuth,
             this.props.toggleDisplayModalEntry
           )}
           <Menu.Item
             icon={true}
-            position={displayMenuItem(fetchDone, fetchStarted, fetchFinished) ?  null : 'right'}
             onClick={() => this.handleRefreshPage()}
             className='menu-refresh'
           >
@@ -84,18 +104,20 @@ class MenuContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, display }) => ({
   fetchDone: auth.fetchDone,
   fetchStarted: auth.fetchStarted,
   fetchFinished: auth.fetchFinished,
-  status: auth.status,
+  loggedIn: auth.loggedIn,
+  showGraph: display.showGraph
 });
 
 const mapDispatchToProps = {
   toggleDisplayModalAuth,
   toggleDisplayModalEntry,
   fetchUpdatedStatus,
-  fetchUpdatedEntry
+  fetchUpdatedEntry,
+  toggleShowGraph
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

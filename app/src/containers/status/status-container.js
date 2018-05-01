@@ -27,7 +27,7 @@ class StatusContainer extends Component {
     }
 
     return (
-      <Container className='status-container'>
+      <Container className='status-container top-container'>
         <StatusComponent
           fetchStarted={fetchStarted}
           fetchFinished={fetchFinished}

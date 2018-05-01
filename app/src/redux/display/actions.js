@@ -3,7 +3,9 @@ import {
   ENTRY_TOGGLE_DISPLAY_MODAL,
 
   UPDATE_AUTH_VALUE,
-  UPDATE_ENTRY_VALUE
+  UPDATE_ENTRY_VALUE,
+
+  TOGGLE_SHOW_GRAPH
 } from './constants';
 
 export const toggleDisplayModalAuth = () => {
@@ -20,4 +22,8 @@ export const updateAuthValue = (value) => {
 
 export const updateEntryValue = (value) => {
   return dispatch => dispatch({ type: UPDATE_ENTRY_VALUE, value: value });
+};
+
+export const toggleShowGraph = () => {
+  return dispatch => dispatch({ type: TOGGLE_SHOW_GRAPH });
 };
