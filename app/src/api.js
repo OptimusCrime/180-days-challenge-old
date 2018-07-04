@@ -1,18 +1,18 @@
-export function fetchStatusRequest() {
+export const fetchStatusRequest = () => {
   return fetch('/api/status');
-}
+};
 
-export function fetchAuthRequest() {
+export const fetchAuthRequest =() => {
   return fetch('/api/auth', {
     credentials: 'same-origin'
   });
-}
+};
 
-export function fetchEntryRequest() {
-  return fetch('/api/entry');
-}
+export const fetchEntryRequest = () => {
+  return fetch('/api/entryy');
+};
 
-export function updateAuthRequest(password) {
+export const updateAuthRequest = password => {
   return fetch('/api/auth', {
     method: 'post',
     credentials: 'same-origin',
@@ -20,9 +20,9 @@ export function updateAuthRequest(password) {
       pw: password
     })
   });
-}
+};
 
-export function addEntryRequest(comment) {
+export const addEntryRequest = comment => {
   return fetch('/api/entry', {
     method: 'put',
     credentials: 'same-origin',
@@ -30,4 +30,4 @@ export function addEntryRequest(comment) {
       comment: comment
     })
   });
-}
+};

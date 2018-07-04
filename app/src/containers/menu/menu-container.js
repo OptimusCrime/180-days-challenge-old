@@ -36,7 +36,7 @@ const getAddOrAuthMenuItem = (fetchDone, fetchStarted, fetchFinished, loggedIn, 
  return null;
 };
 
-const getIconForGraphOrList = (showGraph) => {
+const getIconForGraphOrList = showGraph => {
   if (showGraph) {
     return (
       <Icon name='list' />
@@ -49,10 +49,6 @@ const getIconForGraphOrList = (showGraph) => {
 };
 
 class MenuContainer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   handleRefreshPage() {
     this.props.fetchUpdatedStatus();

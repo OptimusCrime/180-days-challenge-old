@@ -7,7 +7,7 @@ import {
   parseLabels
 } from '../../utilities'
 
-class GraphComponent extends Component {
+export class GraphComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -61,6 +61,3 @@ class GraphComponent extends Component {
     new Chart(ctx, config);
   }
 }
-
-export default GraphComponent;
-

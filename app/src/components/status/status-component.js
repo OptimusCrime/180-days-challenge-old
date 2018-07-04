@@ -1,10 +1,10 @@
 import React from 'react'
 import { Header } from 'semantic-ui-react'
 
-import LoaderComponent from '../../components/loader/loader-component';
-import RingComponent from '../ring/ring-component';
+import { LoaderComponent } from '../../components/loader/loader-component';
+import { RingComponent } from '../ring/ring-component';
 
-const getHeading = (onSchedule) => {
+const getHeading = onSchedule => {
   if (onSchedule) {
     return 'You are ahead!';
   }
@@ -12,7 +12,7 @@ const getHeading = (onSchedule) => {
   return 'You are behind!';
 };
 
-const StatusComponent = ({ fetchStarted, fetchFinished, fetchError, onSchedule, scheduleLimit, entries }) => {
+export const StatusComponent = ({ fetchStarted, fetchFinished, fetchError, onSchedule, scheduleLimit, entries }) => {
 
   if (fetchStarted && !fetchFinished) {
     return <LoaderComponent />;
@@ -34,6 +34,4 @@ const StatusComponent = ({ fetchStarted, fetchFinished, fetchError, onSchedule, 
     </div>
   );
 };
-
-export default StatusComponent;
 

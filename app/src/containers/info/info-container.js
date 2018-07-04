@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Segment } from 'semantic-ui-react'
 
-import InfoComponent from '../../components/info/info-component';
+import { InfoComponent } from '../../components/info/info-component';
 
 class InfoContainer extends Component {
 

@@ -9,10 +9,6 @@ const ENTER_BUTTON = 13;
 
 class ModalAuthContainer extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleKeyDown(event) {
     if (event.keyCode === ENTER_BUTTON) {
       return this.props.updateAuth(event.target.value);
@@ -32,6 +28,7 @@ class ModalAuthContainer extends Component {
         open={true}
         onClose={() => this.props.toggleDisplayModalAuth()}
         size='small'
+        className='modal-container'
       >
         <Header icon='lock' content='Authenticate' />
         <Modal.Content>

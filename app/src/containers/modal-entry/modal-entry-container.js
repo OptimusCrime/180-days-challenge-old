@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Header, Icon, Modal, Input } from 'semantic-ui-react'
+import { Button, Icon, Modal, Input } from 'semantic-ui-react'
 
 import { toggleDisplayModalEntry, updateEntryValue } from '../../redux/display/actions';
 import { updateEntry } from '../../redux/entry/actions';
@@ -8,10 +8,6 @@ import { updateEntry } from '../../redux/entry/actions';
 const ENTER_BUTTON = 13;
 
 class ModalEntryContainer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   handleKeyDown(event) {
     if (event.keyCode === ENTER_BUTTON) {
@@ -31,7 +27,7 @@ class ModalEntryContainer extends Component {
       <Modal
         open={true}
         onClose={() => this.props.toggleDisplayModalEntry()}
-        className='modal-container modal-auth-container'
+        className='modal-container'
       >
         <Modal.Header icon='lock' content='Add entry' />
         <Modal.Content>

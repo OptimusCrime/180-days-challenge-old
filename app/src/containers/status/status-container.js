@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 
-import StatusComponent from '../../components/status/status-component';
+import { StatusComponent } from '../../components/status/status-component';
 
 class StatusContainer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 

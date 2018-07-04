@@ -8,7 +8,7 @@ all: start
 bash:
 	@docker-compose run --rm $(SERVER_SERVICE_NAME) bash
 
-bash_app:
+bash-app:
 	@docker-compose run --rm $(APP_SERVICE_NAME) bash
 
 build:
@@ -44,11 +44,14 @@ composer-migrate:
 composer-install:
 	@docker-compose run --rm $(SERVER_SERVICE_NAME) composer install
 
-yarn-install:
-	@docker-compose run --rm $(APP_SERVICE_NAME) yarn install
+npm-install:
+	@docker-compose run --rm $(APP_SERVICE_NAME) npm install
 
-yarn-build:
-	@docker-compose run --rm $(APP_SERVICE_NAME) yarn run build
+npm-install-win:
+	@docker-compose run --rm $(APP_SERVICE_NAME) npm install --no-bin-links
 
-yarn-watch:
-	@docker-compose run --rm $(APP_SERVICE_NAME) yarn run watch
+npm-build:
+	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script build
+
+npm-watch:
+	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script watch

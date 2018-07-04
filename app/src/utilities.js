@@ -1,5 +1,11 @@
 import differenceInDays from 'date-fns/difference_in_days'
 
+export const formatEntryDate = date => {
+  return date;
+};
+
+// Legacy stuff
+
 const months = {
   'Jan': 1,
   'Feb': 2,

@@ -1,7 +1,7 @@
 import React from 'react'
-import InfoRowComponent from "../info-row/info-row-component";
+import { InfoRowComponent } from "../info-row/info-row-component";
 
-const InfoComponent = ({ dateStart, dateEnd, daysSinceStart, daysRemaining, entries, target, progress }) => {
+export const InfoComponent = ({ dateStart, dateEnd, daysSinceStart, daysRemaining, entries, target, progress }) => {
 
   return (
     <div>
@@ -36,6 +36,3 @@ const InfoComponent = ({ dateStart, dateEnd, daysSinceStart, daysRemaining, entr
     </div>
   );
 };
-
-export default InfoComponent;
-

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InfoRowComponent = ({ label, text }) => {
+export const InfoRowComponent = ({ label, text }) => {
   return (
     <div className='info-row'>
       <div className='info-label'>
@@ -12,6 +12,4 @@ const InfoRowComponent = ({ label, text }) => {
     </div>
   );
 };
-
-export default InfoRowComponent;
 

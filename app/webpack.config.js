@@ -1,102 +1,76 @@
 const path = require('path');
-const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const APP_SRC = path.resolve(__dirname, './src');
 
 module.exports = {
-  entry: [
-    'babel-polyfill',
-    path.join(APP_SRC, 'index.js')
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].[chunkhash].js',
-  },
-  devtool: 'eval-source-map',
-  resolve: {
-    extensions: ['.js', '.json', '.jsx']
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader'
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        loader: [
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            }
-          }
-        ]
-      },
-      {
-        test: /\.less$/,
-        loader: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
+    output: {
+        filename: 'app.js',
+        chunkFilename: 'vendor.js'
+    },
+    devtool: 'eval-source-map',
+    resolve: {
+        extensions: ['.js', '.json', '.jsx']
+    },
+    watch: true,
+    watchOptions: {
+        ignored: ['node_modules'],
+        poll: 1000,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
             },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              sourceMap: true,
-              includePaths: [
-                path.join(APP_SRC, 'node_modules')
-              ]
-            }
-          }
+            {
+                test: /\.css$/,
+                loader: 'css-loader',
+            },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader'
+                }, {
+                    loader: 'less-loader', options: {
+                        paths: [
+                            path.resolve(__dirname, 'node_modules')
+                        ]
+                    }
+                }]
+            },
+            {
+                test: /\.(png|gif|jpe?g)$/,
+                loader: 'url-loader',
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)(\?[a-z0-9=&.]+)?$/,
+                loader: 'url-loader',
+
+            },
         ]
-      },
-      {
-        test: /\.(png|gif|jpe?g)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin()
+        ],
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    enforce: true,
+                    chunks: 'all'
+                }
             }
-          }
-        ]
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?[a-z0-9=&.]+)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000
-        }
-      },
+        },
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            chunks: true
+        }),
     ]
-  },
-  devServer: {
-    historyApiFallback: true
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => (
-        module.context && module.context.indexOf('node_modules') !== -1
-      ),
-    }),
-    new webpack.NamedModulesPlugin(),
-  ]
 };

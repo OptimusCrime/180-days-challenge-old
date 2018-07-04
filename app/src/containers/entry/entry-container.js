@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Segment } from 'semantic-ui-react'
 
-import EntriesComponent from '../../components/entries/entries-component';
+import { EntriesComponent } from '../../components/entries/entries-component';
 
 class EntryContainer extends Component {
 
