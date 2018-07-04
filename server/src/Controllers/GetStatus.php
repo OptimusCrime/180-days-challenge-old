@@ -5,39 +5,25 @@ use OptimusCrime\Models\Entry;
 
 class GetStatus
 {
-    const DISPLAY_DATE_FORMAT = 'j. M Y';
-
-    private $settings;
-
-    public function __construct($settings)
+    public static function get($dateStart, $dateEnd, $target)
     {
-        $this->settings = $settings;
-    }
-
-    public function get()
-    {
-        $settings = $this->settings['challenge'];
-
-        $dateStart = $settings['date_start'];
-        $dateEnd = $settings['date_end'];
-
         $entries = Entry::count();
 
         $daysSinceStart = static::daysBetween($dateStart) + 1;
         $daysRemaining = static::daysBetween($dateEnd, null);
 
-        $scheduleLimit = static::calculateScheduleLimit($dateStart, $dateEnd, $daysSinceStart, $settings['target']);
+        $scheduleLimit = static::calculateScheduleLimit($dateStart, $dateEnd, $daysSinceStart, $target);
 
         return [
-            'date_start' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateStart)),
-            'date_end' => date(static::DISPLAY_DATE_FORMAT, strtotime($dateEnd)),
+            'date_start' => $dateStart,
+            'date_end' => $dateEnd,
             'days_since_start' => $daysSinceStart,
             'days_remaining' => (int) $daysRemaining,
-            'target' => $settings['target'],
+            'target' => $target,
             'entries' => $entries,
             'on_schedule' => $scheduleLimit <= $entries,
             'schedule_limit' => $scheduleLimit,
-            'tick' => static::calculateTick($dateStart, $dateEnd, $settings['target'])
+            'tick' => static::calculateTick($dateStart, $dateEnd, $target)
         ];
     }
 

@@ -10,8 +10,8 @@ class Status extends Base
 {
     public function get(Request $request, Response $response)
     {
-        $controller = new GetStatus($this->container->get('settings'));
-        $data = $controller->get();
+        $settings = $this->container->get('settings')['challenge'];
+        $data = GetStatus::get($settings['date_start'], $settings['date_end'], $settings['target']);
 
         return $this->output($response, $data);
     }

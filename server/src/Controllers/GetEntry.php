@@ -5,9 +5,7 @@ use OptimusCrime\Models\Entry;
 
 class GetEntry
 {
-    const ENTRY_DATE_FORMAT = 'j. M Y @ H:i:s';
-
-    public function get()
+    public static function get()
     {
         $entries = Entry
             ::orderBy('added', 'desc')
@@ -34,7 +32,7 @@ class GetEntry
     {
        return [
           'id' => $entry['id'],
-          'added' => date(static::ENTRY_DATE_FORMAT, strtotime($entry['added'])),
+          'added' => $entry['added'],
           'comment' => $entry['comment']
        ];
     }

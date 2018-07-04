@@ -8,14 +8,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class Auth extends Base
 {
-  public function get(Request $request, Response $response)
-  {
-    $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
+    public function get(Request $request, Response $response)
+    {
+        $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
 
-    return $this->output($response, [
-      'status' => $cookieValue === $this->container->get('settings')['cookie_value']
-    ]);
-  }
+        return $this->output($response, [
+            'status' => $cookieValue === $this->container->get('settings')['cookie_value']
+        ]);
+    }
 
   public function post(Request $request, Response $response)
   {

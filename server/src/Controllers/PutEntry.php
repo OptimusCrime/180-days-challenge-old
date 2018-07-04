@@ -7,17 +7,10 @@ use OptimusCrime\Models\Entry;
 
 class PutEntry
 {
-    private $comment;
-
-    public function __construct($comment = null)
-    {
-        $this->comment = $comment;
-    }
-
-    public function run()
+     public static function put($comment)
     {
         $entry = new Entry();
-        $entry->comment = $this->comment;
+        $entry->comment = $comment;
         $entry->added = Carbon::now();
 
         return $entry->save();

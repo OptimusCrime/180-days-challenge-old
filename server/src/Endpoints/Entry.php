@@ -11,8 +11,7 @@ class Entry extends Base
 {
     public function get(Request $request, Response $response)
     {
-        $controller = new GetEntry();
-        $data = $controller->get();
+        $data = GetEntry::get();
 
         return $this->output($response, $data);
     }
@@ -25,16 +24,9 @@ class Entry extends Base
             $comment = $payload['comment'];
         }
 
-        $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
-        if ($cookieValue === $this->container->get('settings')['cookie_value']) {
-            $controller = new PutEntry($comment);
-
-            return $this->output($response, [
-                'status' => $controller->run()
-            ]);
-        }
-
-        return $response->withStatus(403);
+        return $this->output($response, [
+            'status' => PutEntry::put($comment)
+        ]);
     }
 }
 
