@@ -9,7 +9,7 @@ export const fetchAuthRequest =() => {
 };
 
 export const fetchEntryRequest = () => {
-  return fetch('/api/entryy');
+  return fetch('/api/entry');
 };
 
 export const updateAuthRequest = password => {
