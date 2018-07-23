@@ -5,7 +5,7 @@ use OptimusCrime\Models\Entry;
 
 class GetEntry
 {
-    public static function get()
+    public static function get(array $challenges)
     {
         $entries = Entry
             ::orderBy('added', 'desc')
@@ -15,17 +15,34 @@ class GetEntry
             return [];
         }
 
-        return static::mapEntries($entries->toArray());
+        return static::mapEntries($challenges, $entries->toArray());
     }
 
-    private static function mapEntries(array $entries)
+    private static function mapEntries(array $challenges, array $entries)
     {
-        $output = [];
+        $output = static::buildIdentifiersArray($challenges);
+
         foreach ($entries as $entry) {
-          $output[] = static::mapEntry($entry);
+            if (!isset($output[$entry['identifier']])) {
+                continue;
+            }
+
+          $output[$entry['identifier']][] = static::mapEntry($entry);
         }
 
         return $output;
+    }
+
+    private static function buildIdentifiersArray(array $challenges)
+    {
+        $identifiers = [];
+        foreach ($challenges as $challenge) {
+            if (isset($challenge['identifier'])) {
+                $identifiers[$challenge['identifier']] = [];
+            }
+        }
+
+        return $identifiers;
     }
 
     private static function mapEntry(array $entry)

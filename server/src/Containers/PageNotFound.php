@@ -1,16 +1,16 @@
 <?php
 namespace OptimusCrime\Containers;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Container;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class PageNotFound
 {
-    public static function load(Container $container)
+    public static function load(ContainerInterface $container)
     {
         $container['notFoundHandler'] = function ($c) {
-            return function (Request $request, Response $response) use ($c) {
+            return function (ServerRequestInterface $request, ResponseInterface $response) use ($c) {
                 $jsonResponse = $response->withJson([]);
                 return $jsonResponse->withStatus(404);
             };

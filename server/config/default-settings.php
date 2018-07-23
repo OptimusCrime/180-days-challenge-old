@@ -12,13 +12,31 @@ return [
         ],
 
         // Challenge specific settings
-        'challenge' => [
-            // Dates are on the format yyyy-mm-dd
-            'date_start' => '2018-01-01',
-            'date_end' => '2018-06-30',
+        'challenges' => [
+             [
+                 // Unique identifier for this challenge. Used to tie this challenge to entires in the database
+                 'identifier' => 'second',
 
-            // The target to reach within the duration of the challenge
-            'target' => 90
+                 // Specifies if this challenge is still active
+                 'active' => true,
+
+                 // Specifies if the challenge is the current one (if multiple)
+                 'current' => true,
+
+                 // Dates are on the format yyyy-mm-dd
+                 'date_start' => '2018-07-01',
+                 'date_end' => '2018-12-31',
+
+                 // The target to reach within the duration of the challenge
+                 'target' => 90,
+             ], [
+                'identifier' => 'first',
+                'active' => false,
+                'current' => false,
+                'date_start' => '2018-01-01',
+                'date_end' => '2018-06-30',
+                'target' => 90,
+            ]
         ],
 
         'cookie_key' => '180_challenge',

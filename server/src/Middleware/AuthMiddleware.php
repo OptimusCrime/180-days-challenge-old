@@ -1,20 +1,20 @@
 <?php
 namespace OptimusCrime\Middleware;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Container;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class AuthMiddleware
 {
     protected $container;
 
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    public function __invoke(Request $request, Response $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
     {
         $cookieValue = $request->getCookieParam($this->container->get('settings')['cookie_key']);
         if ($cookieValue === $this->container->get('settings')['cookie_value']) {
@@ -22,7 +22,5 @@ class AuthMiddleware
         }
 
         return $response->withStatus(403);
-
-
     }
 }

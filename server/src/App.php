@@ -1,6 +1,7 @@
 <?php
 namespace OptimusCrime;
 
+use OptimusCrime\Middleware\IdentifierMiddleware;
 use Slim\App as Slim;
 
 use OptimusCrime\Endpoints\Status;
@@ -34,7 +35,9 @@ class App
     {
         $this->app->get('/status', Status::class . ':get');
         $this->app->get('/entry', Entry::class . ':get');
-        $this->app->put('/entry', Entry::class . ':put')->add(new AuthMiddleware($this->app->getContainer()));
+        $this->app->put('/entry', Entry::class . ':put')
+            ->add(new AuthMiddleware($this->app->getContainer()))
+            ->add(new IdentifierMiddleware($this->app->getContainer()));
         $this->app->get('/auth', Auth::class . ':get');
         $this->app->post('/auth', Auth::class . ':post');
     }

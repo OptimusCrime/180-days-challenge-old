@@ -1,14 +1,14 @@
 <?php
 namespace OptimusCrime\Containers;
 
+use Psr\Container\ContainerInterface;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\ConnectionResolver;
-use Slim\Container;
 
 class Database
 {
-    public static function load(Container $container)
+    public static function load(ContainerInterface $container)
     {
         $capsule = new Manager;
         $capsule->addConnection($container->get('settings')['db']);
@@ -23,7 +23,7 @@ class Database
         $resolver->setDefaultConnection('default');
         Model::setConnectionResolver($resolver);
 
-        $container['db'] = function ($container) use ($capsule) {
+        $container['db'] = function () use ($capsule) {
             return $capsule;
         };
     }

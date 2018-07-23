@@ -1,19 +1,19 @@
 <?php
 namespace OptimusCrime\Endpoints;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 use OptimusCrime\Controllers\GetStatus;
 
 class Status extends Base
 {
-    public function get(Request $request, Response $response)
+    public function get(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $settings = $this->container->get('settings')['challenge'];
-        $data = GetStatus::get($settings['date_start'], $settings['date_end'], $settings['target']);
-
-        return $this->output($response, $data);
+        return $this->output(
+            $response,
+            GetStatus::get($this->container->get('settings')['challenges'])
+        );
     }
 }
 
