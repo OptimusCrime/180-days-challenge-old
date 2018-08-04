@@ -1,17 +1,13 @@
-import React, { Component } from 'react'
-import Chart from 'chart.js'
+import React, { Component } from 'react';
+import Chart from 'chart.js';
 
 import {
   parseGrowthDataSet,
   parseProgressDataSet,
   parseLabels
-} from '../../utilities'
+} from '../../utilities';
 
 export class GraphComponent extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -57,7 +53,6 @@ export class GraphComponent extends Component {
       }
     };
 
-    let ctx = document.getElementById('graph').getContext('2d');
-    new Chart(ctx, config);
+    new Chart(document.getElementById('graph').getContext('2d'), config);
   }
 }

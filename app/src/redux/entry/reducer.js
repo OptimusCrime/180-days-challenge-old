@@ -6,10 +6,9 @@ import {
   ENTRY_UPDATE_STARTED,
   ENTRY_UPDATE_FINISHED,
   ENTRY_UPDATE_FAILED,
-} from './constants'
+} from './constants';
 
 const defaultState = {
-  fetchDone: false,
   fetchStarted: false,
   fetchFinished: false,
   fetchError: false,
@@ -28,8 +27,6 @@ const entry = (state = defaultState, action) => {
 
     case ENTRY_FETCH_FINISHED:
       return {
-        ...state,
-        fetchDone: true,
         fetchStarted: false,
         fetchFinished: true,
         fetchError: false,
@@ -39,7 +36,6 @@ const entry = (state = defaultState, action) => {
     case ENTRY_FETCH_FAILED:
       return {
         ...state,
-        fetchDone: true,
         fetchStarted: false,
         fetchFinished: false,
         fetchError: true

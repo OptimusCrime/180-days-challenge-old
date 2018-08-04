@@ -1,39 +1,20 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import EntryContainer from './entry/entry-container';
 import InfoContainer from './info/info-container';
-import MenuContainer from './menu/menu-container';
-import ModalAuthContainer from './modal-auth/modal-auth-container';
-import ModalEntryContainer from './modal-entry/modal-entry-container';
 import StatusContainer from './status/status-container';
 import GraphContainer from './graph/graph-container';
+import MenuContainer from './menu/menu-container';
+
+import ModalAuthContainer from './modal-auth/modal-auth-container';
+import ModalEntryContainer from './modal-entry/modal-entry-container';
 
 import { fetchAuth } from '../redux/auth/actions';
 import { fetchInitialEntry } from '../redux/entry/actions';
 import { fetchInitialStatus } from '../redux/status/actions';
 
-const getMainBodyContainers = (showGraph) => {
-  if (showGraph) {
-    return (
-      <GraphContainer />
-    );
-  }
-
-  return (
-    <div>
-      <StatusContainer />
-      <InfoContainer />
-      <EntryContainer />
-    </div>
-  );
-};
-
 class MainContainer extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.fetchAuth();
@@ -54,7 +35,14 @@ class MainContainer extends Component {
         {showModalAuth && <ModalAuthContainer />}
         {showModalEntry && <ModalEntryContainer />}
         <MenuContainer />
-        {getMainBodyContainers(showGraph)}
+        {showGraph ?
+          <GraphContainer /> :
+          <React.Fragment>
+            <StatusContainer />
+            <InfoContainer />
+            <EntryContainer />
+          </React.Fragment>
+        }
       </div>
     );
   }

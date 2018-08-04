@@ -8,20 +8,22 @@ class GetStatus
     public static function get(array $challenges)
     {
         $output = [];
-        foreach ($challenges as $challenge) {
-            $output[] = static::challengeStatus($challenge);
+        foreach ($challenges as $index => $challenge) {
+            $output[] = static::challengeStatus($challenge, $index);
         }
 
         return $output;
     }
 
-    private static function challengeStatus(array $challenge)
+    private static function challengeStatus(array $challenge, $index)
     {
         $entries = Entry
             ::where('identifier', $challenge['identifier'])
             ->count();
 
         return [
+            'challenge' => $index,
+            'identifier' => $challenge['identifier'],
             'date_start' => $challenge['date_start'],
             'date_end' => $challenge['date_end'],
             'target' => $challenge['target'],
@@ -32,31 +34,24 @@ class GetStatus
 
     private static function calculateProgress(array $challenge, $entries)
     {
-        if ($challenge['active']) {
-            $daysSinceStart = static::daysBetween($challenge['date_start']) + 1;
+        $daysSinceStart = static::daysBetween($challenge['date_start']) + 1;
 
-            $scheduleLimit = static::calculateScheduleLimit(
-                $challenge['date_start'],
-                $challenge['date_end'],
-                $daysSinceStart,
-                $challenge['target']
-            );
-
-            return [
-                'active' => true,
-                'current' => $challenge['current'],
-                'on_schedule' => $scheduleLimit <= $entries,
-                'schedule_limit' => $scheduleLimit,
-                'tick' => static::calculateTick($challenge['date_start'], $challenge['date_end'], $challenge['target']),
-                'days_since_start' => $daysSinceStart,
-                'days_remaining' => static::daysBetween($challenge['date_end'], null),
-            ];
-        }
+        $scheduleLimit = static::calculateScheduleLimit(
+            $challenge['date_start'],
+            $challenge['date_end'],
+            $daysSinceStart,
+            $challenge['target']
+        );
 
         return [
-            'active' => false,
+            'active' => $challenge['active'],
             'current' => $challenge['current'],
-            'successful' => $entries >= $challenge['target']
+            'successful' => $challenge['active'] ? null : $entries >= $challenge['target'],
+            'on_schedule' => $challenge['active'] ? $scheduleLimit <= $entries : null,
+            'schedule_limit' => $challenge['active'] ? $scheduleLimit : null,
+            'tick' => $challenge['active'] ? static::calculateTick($challenge['date_start'], $challenge['date_end'], $challenge['target']) : null,
+            'days_since_start' => $challenge['active'] ? $daysSinceStart : null,
+            'days_remaining' => $challenge['active'] ? static::daysBetween($challenge['date_end'], null) : null,
         ];
     }
 

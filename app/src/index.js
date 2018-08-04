@@ -1,9 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import MainContainer from './containers/main-container'
-import configureStore from './redux/configureStore'
+import MainContainer from './containers/main-container';
+import configureStore from './redux/configureStore';
 
 import './style.less';
 
@@ -13,7 +13,7 @@ const store = configureStore(preloadedState);
 
 ReactDOM.render((
     <Provider store={store}>
-      <MainContainer/>
+      <MainContainer />
     </Provider>
   ), document.getElementById('app')
 );

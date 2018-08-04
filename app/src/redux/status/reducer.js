@@ -2,13 +2,13 @@ import {
   STATUS_FETCH_STARTED,
   STATUS_FETCH_FINISHED,
   STATUS_FETCH_FAILED
-} from './constants'
+} from './constants';
 
 const defaultState = {
-  fetchDone: false,
   fetchStarted: false,
   fetchFinished: false,
-  fetchError: false
+  fetchError: false,
+  statuses: [],
 };
 
 const display = (state = defaultState, action) => {
@@ -23,16 +23,14 @@ const display = (state = defaultState, action) => {
     case STATUS_FETCH_FINISHED:
       return {
         ...state,
-        fetchDone: true,
         fetchStarted: false,
         fetchFinished: true,
         fetchError: false,
-        ...action.data
+        statuses: action.data
       };
     case STATUS_FETCH_FAILED:
       return {
         ...state,
-        fetchDone: true,
         fetchStarted: false,
         fetchFinished: false,
         fetchError: true

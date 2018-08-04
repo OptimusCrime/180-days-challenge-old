@@ -8,22 +8,12 @@ import {
   TOGGLE_SHOW_GRAPH
 } from './constants';
 
-export const toggleDisplayModalAuth = () => {
-  return dispatch => dispatch({ type: AUTH_TOGGLE_DISPLAY_MODAL });
-};
+export const toggleDisplayModalAuth = () => dispatch => dispatch({ type: AUTH_TOGGLE_DISPLAY_MODAL });
 
-export const toggleDisplayModalEntry = () => {
-  return dispatch => dispatch({ type: ENTRY_TOGGLE_DISPLAY_MODAL });
-};
+export const toggleDisplayModalEntry = () => dispatch => dispatch({ type: ENTRY_TOGGLE_DISPLAY_MODAL });
 
-export const updateAuthValue = (value) => {
-  return dispatch => dispatch({ type: UPDATE_AUTH_VALUE, value: value });
-};
+export const updateAuthValue = value => dispatch => dispatch({ type: UPDATE_AUTH_VALUE, value: value });
 
-export const updateEntryValue = (value) => {
-  return dispatch => dispatch({ type: UPDATE_ENTRY_VALUE, value: value });
-};
+export const updateEntryValue = value => dispatch => dispatch({ type: UPDATE_ENTRY_VALUE, value: value });
 
-export const toggleShowGraph = () => {
-  return dispatch => dispatch({ type: TOGGLE_SHOW_GRAPH });
-};
+export const toggleShowGraph = () => dispatch => dispatch({ type: TOGGLE_SHOW_GRAPH });

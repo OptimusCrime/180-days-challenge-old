@@ -1,4 +1,4 @@
-import differenceInDays from 'date-fns/difference_in_days'
+import differenceInDays from 'date-fns/difference_in_days';
 
 export const formatEntryDate = date => {
   return date;

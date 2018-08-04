@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Segment } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 
-import { InfoComponent } from '../../components/info/info-component';
+import { InfoRowComponent } from '../../components/info-row/info-row-component';
 
 class InfoContainer extends Component {
 
@@ -18,20 +18,39 @@ class InfoContainer extends Component {
       daysRemaining,
       entries,
       target,
-      scheduleLimit
     } = this.props;
 
+    // TODO this wont work
     if (fetchDone && !fetchStarted && fetchFinished) {
       return (
         <Segment inverted className='info-container'>
-          <InfoComponent
-            dateStart={dateStart}
-            dateEnd={dateEnd}
-            daysSinceStart={daysSinceStart}
-            daysRemaining={daysRemaining}
-            entries={entries}
-            target={target}
-            progress={scheduleLimit}
+          <InfoRowComponent
+            label='Days since start'
+            text={daysSinceStart}
+          />
+          <InfoRowComponent
+            label='Days remaining'
+            text={daysRemaining}
+          />
+          <InfoRowComponent
+            label='Entries'
+            text={entries}
+          />
+          <InfoRowComponent
+            label='Target'
+            text={target}
+          />
+          <InfoRowComponent
+            label='Progress'
+            text={progress.toFixed(2)}
+          />
+          <InfoRowComponent
+            label='Challenge started'
+            text={dateStart}
+          />
+          <InfoRowComponent
+            label='Challenge end'
+            text={dateEnd}
           />
         </Segment>
       );
@@ -50,8 +69,7 @@ const mapStateToProps = ({ status }) => ({
   daysSinceStart: status.days_since_start,
   daysRemaining: status.days_remaining,
   entries: status.entries,
-  target: status.target,
-  scheduleLimit: status.schedule_limit,
+  target: status.target
 });
 
 export default connect(mapStateToProps)(InfoContainer);

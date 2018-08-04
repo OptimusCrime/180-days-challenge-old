@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Button, Icon, Modal, Input } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button, Icon, Modal, Input } from 'semantic-ui-react';
 
 import { toggleDisplayModalEntry, updateEntryValue } from '../../redux/display/actions';
 import { updateEntry } from '../../redux/entry/actions';
-
-const ENTER_BUTTON = 13;
+import { ENTER_BUTTON } from '../../constants';
 
 class ModalEntryContainer extends Component {
 

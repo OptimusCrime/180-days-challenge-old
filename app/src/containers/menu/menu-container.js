@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Container, Icon, Menu } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Container, Icon, Menu } from 'semantic-ui-react';
 
-import { toggleDisplayModalAuth, toggleDisplayModalEntry, toggleShowGraph } from '../../redux/display/actions'
-import { fetchUpdatedStatus } from '../../redux/status/actions'
-import { fetchUpdatedEntry } from '../../redux/entry/actions'
+import { toggleDisplayModalAuth, toggleDisplayModalEntry, toggleShowGraph } from '../../redux/display/actions';
+import { fetchUpdatedStatus } from '../../redux/status/actions';
+import { fetchUpdatedEntry } from '../../redux/entry/actions';
+
+// TODO
 
 const displayMenuItem = (fetchDone, fetchStarted, fetchFinished) => {
   return fetchDone && !fetchStarted && fetchFinished;
@@ -36,18 +38,6 @@ const getAddOrAuthMenuItem = (fetchDone, fetchStarted, fetchFinished, loggedIn, 
  return null;
 };
 
-const getIconForGraphOrList = showGraph => {
-  if (showGraph) {
-    return (
-      <Icon name='list' />
-    );
-  }
-
-  return (
-    <Icon name='chart line' />
-  );
-};
-
 class MenuContainer extends Component {
 
   handleRefreshPage() {
@@ -75,7 +65,7 @@ class MenuContainer extends Component {
               position='right'
               onClick={() => this.props.toggleShowGraph()}
             >
-              {getIconForGraphOrList(showGraph)}
+              {showGraph ? <Icon name='list' /> : <Icon name='chart line' />}
             </Menu.Item>
           }
           {getAddOrAuthMenuItem(

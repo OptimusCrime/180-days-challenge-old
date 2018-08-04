@@ -20,14 +20,22 @@ class GetEntry
 
     private static function mapEntries(array $challenges, array $entries)
     {
-        $output = static::buildIdentifiersArray($challenges);
+        $tempOutput = static::buildIdentifiersArray($challenges);
 
         foreach ($entries as $entry) {
-            if (!isset($output[$entry['identifier']])) {
+            if (!isset($tempOutput[$entry['identifier']])) {
                 continue;
             }
 
-          $output[$entry['identifier']][] = static::mapEntry($entry);
+          $tempOutput[$entry['identifier']][] = static::mapEntry($entry);
+        }
+
+        $output = [];
+        foreach ($tempOutput as $identifier => $entries) {
+            $output[] = [
+                'identifier' => $identifier,
+                'entries' => $entries,
+            ];
         }
 
         return $output;

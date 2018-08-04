@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Button, Header, Icon, Modal, Input } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button, Header, Icon, Modal, Input } from 'semantic-ui-react';
 
 import { toggleDisplayModalAuth, updateAuthValue } from '../../redux/display/actions';
 import { updateAuth } from '../../redux/auth/actions';
+import { ENTER_BUTTON } from '../../constants';
 
-const ENTER_BUTTON = 13;
 
 class ModalAuthContainer extends Component {
 

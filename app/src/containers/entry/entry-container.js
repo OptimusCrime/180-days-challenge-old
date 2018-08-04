@@ -1,26 +1,33 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Segment } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 
-import { EntriesComponent } from '../../components/entries/entries-component';
+import { formatEntryDate } from '../../utilities';
 
 class EntryContainer extends Component {
 
   render() {
 
     const {
-      fetchDone,
-      fetchStarted,
-      fetchFinished,
-      entries
+      entryFetchFinished,
+      statusFetchFinished,
+      challenges,
+      currentChallenge
     } = this.props;
 
-    if (fetchDone && !fetchStarted && fetchFinished) {
+    if (entryFetchFinished && statusFetchFinished) {
+      const entries = challenges.find(challenge => challenge.identifier === currentChallenge).entries;
+
       return (
         <Segment className='entry-container'>
-          <EntriesComponent
-            entries={entries}
-          />
+          <div className='entries'>
+            {entries.map(entry => (
+              <div key={entry.id} className='entry'>
+                <strong>{formatEntryDate(entry.added)}</strong>
+                <p>{entry.comment || <i>No comment</i>}</p>
+              </div>
+            ))}
+          </div>
         </Segment>
       );
     }
@@ -29,11 +36,11 @@ class EntryContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ entry }) => ({
-  fetchDone: entry.fetchDone,
-  fetchStarted: entry.fetchStarted,
-  fetchFinished: entry.fetchFinished,
-  entries: entry.entries,
+const mapStateToProps = ({ entry, status, display }) => ({
+  entryFetchFinished: entry.fetchFinished,
+  statusFetchFinished: status.fetchFinished,
+  challenges: entry.entries,
+  currentChallenge: display.currentChallenge
 });
 
 export default connect(mapStateToProps)(EntryContainer);
