@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => ({
   output: {
-    filename: 'app.js',
+    filename: '[name].[contenthash].js',
     chunkFilename: 'vendor.js'
   },
-  devtool: 'eval-source-map',
+  devtool: argv.mode === 'development' ? 'eval-source-map' : '',
   resolve: {
     extensions: ['.js', '.json', '.jsx']
   },
