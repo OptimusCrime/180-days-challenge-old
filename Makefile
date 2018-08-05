@@ -53,5 +53,8 @@ npm-install-win:
 npm-build:
 	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script build
 
+npm-build-prod:
+	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script build:prod
+
 npm-watch:
 	@docker-compose run --rm $(APP_SERVICE_NAME) npm run-script watch

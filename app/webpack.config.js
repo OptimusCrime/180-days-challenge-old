@@ -1,12 +1,15 @@
+const path = require('path');
+
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (env, argv) => ({
   output: {
-    filename: '[name].[contenthash].js',
-    chunkFilename: 'vendor.js'
+    filename: argv.mode === 'development' ? 'app.js' : '[name].[contenthash].js',
+    chunkFilename: 'vendor.js',
   },
   devtool: argv.mode === 'development' ? 'eval-source-map' : '',
   resolve: {
@@ -63,6 +66,11 @@ module.exports = (env, argv) => ({
     },
   },
   plugins: [
+    new CleanWebpackPlugin([
+      'dist/*',
+    ], {
+      exclude: ['.gitignore']
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       chunks: true
