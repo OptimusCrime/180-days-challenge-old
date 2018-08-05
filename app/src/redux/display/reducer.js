@@ -9,10 +9,15 @@ import
   UPDATE_AUTH_VALUE,
   UPDATE_ENTRY_VALUE,
 
-  TOGGLE_SHOW_GRAPH
+  TOGGLE_SHOW_GRAPH,
+  CHANGE_CURRENT_CHALLENGE
 } from './constants';
 import { STATUS_FETCH_FINISHED } from "../status/constants";
-import { mapChallenges, mapCurrentChallenge } from "./mapper";
+import {
+  mapChallenges,
+  mapChangeCurrentChallenge,
+  mapCurrentChallenge
+} from "./mapper";
 
 const defaultState = {
   showModalAuth: false,
@@ -22,8 +27,7 @@ const defaultState = {
   authValue: '',
   entryComment: '',
 
-  challenges: [],
-  currentChallenge: 0
+  currentChallenge: {}
 };
 
 const display = (state = defaultState, action) => {
@@ -31,8 +35,13 @@ const display = (state = defaultState, action) => {
     case STATUS_FETCH_FINISHED:
       return {
         ...state,
-        challenges: mapChallenges(action.data),
         currentChallenge: mapCurrentChallenge(action.data)
+      };
+
+    case CHANGE_CURRENT_CHALLENGE:
+      return {
+        ...state,
+        currentChallenge: mapChangeCurrentChallenge(action.challenge, action.challenges)
       };
 
     case AUTH_TOGGLE_DISPLAY_MODAL:

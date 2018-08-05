@@ -19,13 +19,14 @@ class ModalEntryContainer extends Component {
     const {
       entryComment,
       updateStarted,
-      updateFailed
+      updateFailed,
+      currentChallenge,
     } = this.props;
 
     return (
       <Modal
         open={true}
-        onClose={() => this.props.toggleDisplayModalEntry()}
+        onClose={this.props.toggleDisplayModalEntry}
         className='modal-container'
       >
         <Modal.Header icon='lock' content='Add entry' />
@@ -41,10 +42,10 @@ class ModalEntryContainer extends Component {
           {updateFailed && <p className='modal-incorrect-password'>Something went wrong. Try again.</p>}
         </Modal.Content>
         <Modal.Actions>
-          <Button color='red' onClick={() => this.props.toggleDisplayModalEntry()} inverted>
+          <Button color='red' onClick={this.props.toggleDisplayModalEntry} inverted>
             <Icon name='cancel' /> Cancel
           </Button>
-          <Button color='green' onClick={() => this.props.updateEntry(entryComment)} inverted>
+          <Button color='green' onClick={() => this.props.updateEntry(currentChallenge.identifier, entryComment)} inverted>
             <Icon name='checkmark' /> Post
           </Button>
         </Modal.Actions>
@@ -56,7 +57,8 @@ class ModalEntryContainer extends Component {
 const mapStateToProps = ({ display, entry }) => ({
   entryComment: display.entryComment,
   updateStarted: entry.updateStarted,
-  updateFailed: entry.updateFailed
+  updateFailed: entry.updateFailed,
+  currentChallenge: display.currentChallenge,
 });
 
 const mapDispatchToProps = {

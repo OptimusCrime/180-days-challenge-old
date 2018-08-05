@@ -9,29 +9,69 @@ class InfoContainer extends Component {
   render() {
 
     const {
-      fetchDone,
-      fetchStarted,
-      fetchFinished,
-      dateStart,
-      dateEnd,
-      daysSinceStart,
-      daysRemaining,
-      entries,
-      target,
+      entryFetchFinished,
+      statusFetchFinished,
+
+      entryFetchFailed,
+      statusFetchFailed,
+
+      currentChallenge,
     } = this.props;
 
-    // TODO this wont work
-    if (fetchDone && !fetchStarted && fetchFinished) {
+    if (entryFetchFinished && statusFetchFinished && !entryFetchFailed && !statusFetchFailed) {
+
+      const {
+        progress,
+        date_start,
+        date_end,
+        entries,
+        target,
+      } = currentChallenge;
+
+      const {
+        active,
+        days_since_start,
+        days_remaining,
+        schedule_limit,
+      } = progress;
+
+      if (active) {
+        return (
+          <Segment inverted className='info-container'>
+            <InfoRowComponent
+              label='Days since start'
+              text={days_since_start}
+            />
+            <InfoRowComponent
+              label='Days remaining'
+              text={days_remaining}
+            />
+            <InfoRowComponent
+              label='Entries'
+              text={entries}
+            />
+            <InfoRowComponent
+              label='Target'
+              text={target}
+            />
+            <InfoRowComponent
+              label='Progress'
+              text={schedule_limit.toFixed(2)}
+            />
+            <InfoRowComponent
+              label='Challenge started'
+              text={date_start}
+            />
+            <InfoRowComponent
+              label='Challenge end'
+              text={date_end}
+            />
+          </Segment>
+        );
+      }
+
       return (
         <Segment inverted className='info-container'>
-          <InfoRowComponent
-            label='Days since start'
-            text={daysSinceStart}
-          />
-          <InfoRowComponent
-            label='Days remaining'
-            text={daysRemaining}
-          />
           <InfoRowComponent
             label='Entries'
             text={entries}
@@ -41,16 +81,12 @@ class InfoContainer extends Component {
             text={target}
           />
           <InfoRowComponent
-            label='Progress'
-            text={progress.toFixed(2)}
-          />
-          <InfoRowComponent
             label='Challenge started'
-            text={dateStart}
+            text={date_start}
           />
           <InfoRowComponent
             label='Challenge end'
-            text={dateEnd}
+            text={date_end}
           />
         </Segment>
       );
@@ -60,16 +96,14 @@ class InfoContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ status }) => ({
-  fetchDone: status.fetchDone,
-  fetchStarted: status.fetchStarted,
-  fetchFinished: status.fetchFinished,
-  dateStart: status.date_start,
-  dateEnd: status.date_end,
-  daysSinceStart: status.days_since_start,
-  daysRemaining: status.days_remaining,
-  entries: status.entries,
-  target: status.target
+const mapStateToProps = ({ status, entry, display }) => ({
+  entryFetchFinished: entry.fetchFinished,
+  statusFetchFinished: status.fetchFinished,
+
+  entryFetchFailed: entry.fetchFailed,
+  statusFetchFailed: status.fetchFailed,
+
+  currentChallenge: display.currentChallenge,
 });
 
 export default connect(mapStateToProps)(InfoContainer);

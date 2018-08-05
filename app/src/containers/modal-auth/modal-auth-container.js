@@ -26,7 +26,7 @@ class ModalAuthContainer extends Component {
     return (
       <Modal
         open={true}
-        onClose={() => this.props.toggleDisplayModalAuth()}
+        onClose={this.props.toggleDisplayModalAuth}
         size='small'
         className='modal-container'
       >
@@ -43,7 +43,7 @@ class ModalAuthContainer extends Component {
           {updateFailed && <p className='modal-incorrect-password'>Incorrect password. Try again.</p>}
         </Modal.Content>
         <Modal.Actions>
-          <Button color='red' onClick={() => this.props.toggleDisplayModalAuth()} inverted>
+          <Button color='red' onClick={this.props.toggleDisplayModalAuth} inverted>
             <Icon name='cancel' /> Cancel
           </Button>
           <Button color='green' onClick={() => this.props.updateAuth(authValue)} inverted>

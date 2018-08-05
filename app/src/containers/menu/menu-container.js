@@ -1,42 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Icon, Menu } from 'semantic-ui-react';
+import { Container, Icon, Menu, Dropdown } from 'semantic-ui-react';
 
-import { toggleDisplayModalAuth, toggleDisplayModalEntry, toggleShowGraph } from '../../redux/display/actions';
+import {
+  changeCurrentChallenge,
+  toggleDisplayModalAuth,
+  toggleDisplayModalEntry,
+  toggleShowGraph
+} from '../../redux/display/actions';
 import { fetchUpdatedStatus } from '../../redux/status/actions';
 import { fetchUpdatedEntry } from '../../redux/entry/actions';
-
-// TODO
-
-const displayMenuItem = (fetchDone, fetchStarted, fetchFinished) => {
-  return fetchDone && !fetchStarted && fetchFinished;
-};
-
-const getAddOrAuthMenuItem = (fetchDone, fetchStarted, fetchFinished, loggedIn, _toggleDisplayModalAuth, _toggleDisplayModalEntry) => {
-  if (displayMenuItem(fetchDone, fetchStarted, fetchFinished)) {
-    if (loggedIn) {
-      return (
-        <Menu.Item
-          icon={true}
-          onClick={() => _toggleDisplayModalEntry()}
-        >
-          <Icon name='plus' />
-        </Menu.Item>
-      );
-    }
-
-    return (
-      <Menu.Item
-        icon={true}
-        onClick={() => _toggleDisplayModalAuth()}
-      >
-        <Icon name='lock' />
-      </Menu.Item>
-    );
-  }
-
- return null;
-};
 
 class MenuContainer extends Component {
 
@@ -48,38 +21,78 @@ class MenuContainer extends Component {
   render() {
 
     const {
-      fetchDone,
-      fetchStarted,
-      fetchFinished,
+      authFetchFinished,
+      authFetchFailed,
+
+      statusFetchFinished,
+      statusFetchFailed,
+
       loggedIn,
-      showGraph
+      showGraph,
+      challenges,
+      currentChallenge,
     } = this.props;
+
+    const numberOfChallenges = challenges.length;
 
     return (
       <Menu fixed='top' inverted>
         <Container>
           <Menu.Item header className='app-name'>180 days challenge</Menu.Item>
-          {fetchDone &&
-            <Menu.Item
-              icon={true}
-              position='right'
-              onClick={() => this.props.toggleShowGraph()}
-            >
-              {showGraph ? <Icon name='list' /> : <Icon name='chart line' />}
-            </Menu.Item>
+          {authFetchFinished && statusFetchFinished && !authFetchFailed && !statusFetchFailed &&
+            <React.Fragment>
+              <Dropdown
+                item
+                icon='cog'
+                simple
+                className='right'
+              >
+                <Dropdown.Menu>
+                  {challenges.map((challenge, index) => (
+                    <Dropdown.Item
+                      onClick={() => this.props.changeCurrentChallenge(challenge.identifier, challenges)}
+                      key={index}
+                    >
+                      {challenge.identifier === currentChallenge.identifier ?
+                        <strong>
+                          {`Challenge #${numberOfChallenges - index}`}
+                        </strong> :
+                        <span>
+                          {`Challenge #${numberOfChallenges - index}`}
+                        </span>
+                      }
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Menu.Item
+                icon={true}
+                onClick={this.props.toggleShowGraph}
+              >
+                {showGraph ? <Icon name='list' /> : <Icon name='chart line' />}
+              </Menu.Item>
+              <React.Fragment>
+                {loggedIn ?
+                  <Menu.Item
+                    icon={true}
+                    onClick={this.props.toggleDisplayModalEntry}
+                  >
+                    <Icon name='plus' />
+                  </Menu.Item> :
+                  <Menu.Item
+                    icon={true}
+                    onClick={this.props.toggleDisplayModalAuth}
+                  >
+                    <Icon name='lock' />
+                  </Menu.Item>
+                }
+              </React.Fragment>
+            </React.Fragment>
           }
-          {getAddOrAuthMenuItem(
-            fetchDone,
-            fetchStarted,
-            fetchFinished,
-            loggedIn,
-            this.props.toggleDisplayModalAuth,
-            this.props.toggleDisplayModalEntry
-          )}
           <Menu.Item
             icon={true}
-            onClick={() => this.handleRefreshPage()}
-            className='menu-refresh'
+            onClick={this.handleRefreshPage}
+            className={`menu-refresh ${authFetchFinished && statusFetchFinished && !authFetchFailed && !statusFetchFailed ? '': 'right'}`}
           >
             <Icon name='refresh' />
           </Menu.Item>
@@ -89,12 +102,17 @@ class MenuContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, display }) => ({
-  fetchDone: auth.fetchDone,
-  fetchStarted: auth.fetchStarted,
-  fetchFinished: auth.fetchFinished,
+const mapStateToProps = ({ auth, status, display }) => ({
+  authFetchFinished: auth.fetchFinished,
+  authFetchFailed: auth.fetchFailed,
+
+  statusFetchFinished: status.fetchFinished,
+  statusFetchFailed: status.fetchFailed,
+
   loggedIn: auth.loggedIn,
-  showGraph: display.showGraph
+  showGraph: display.showGraph,
+  currentChallenge: display.currentChallenge,
+  challenges: status.statuses,
 });
 
 const mapDispatchToProps = {
@@ -102,7 +120,8 @@ const mapDispatchToProps = {
   toggleDisplayModalEntry,
   fetchUpdatedStatus,
   fetchUpdatedEntry,
-  toggleShowGraph
+  toggleShowGraph,
+  changeCurrentChallenge
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

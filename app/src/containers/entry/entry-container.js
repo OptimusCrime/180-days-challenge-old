@@ -11,12 +11,16 @@ class EntryContainer extends Component {
     const {
       entryFetchFinished,
       statusFetchFinished,
+
+      entryFetchFailed,
+      statusFetchFailed,
+
       challenges,
       currentChallenge
     } = this.props;
 
-    if (entryFetchFinished && statusFetchFinished) {
-      const entries = challenges.find(challenge => challenge.identifier === currentChallenge).entries;
+    if (entryFetchFinished && statusFetchFinished && !entryFetchFailed && !statusFetchFailed) {
+      const entries = challenges.find(challenge => challenge.identifier === currentChallenge.identifier).entries;
 
       return (
         <Segment className='entry-container'>
@@ -39,6 +43,10 @@ class EntryContainer extends Component {
 const mapStateToProps = ({ entry, status, display }) => ({
   entryFetchFinished: entry.fetchFinished,
   statusFetchFinished: status.fetchFinished,
+
+  entryFetchFailed: entry.fetchFailed,
+  statusFetchFailed: status.fetchFailed,
+
   challenges: entry.entries,
   currentChallenge: display.currentChallenge
 });

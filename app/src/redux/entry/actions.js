@@ -32,10 +32,10 @@ export const fetchInitialEntry = () => dispatch => {
     .then(data => dispatch({ type: ENTRY_FETCH_FINISHED, data: data }));
 };
 
-export const updateEntry = comment => dispatch => {
+export const updateEntry = (identifier, comment) => dispatch => {
   dispatch({ type: ENTRY_UPDATE_STARTED });
 
-  addEntryRequest(comment)
+  addEntryRequest(identifier, comment)
     .then(response => {
       if (response.status !== HTTP_200_CODE) {
         throw new Error(UNKNOWN_ENTRY_UPDATE_ERROR);

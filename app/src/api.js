@@ -14,10 +14,11 @@ export const updateAuthRequest = password => fetch('/api/auth', {
   })
 });
 
-export const addEntryRequest = comment => fetch('/api/entry', {
+export const addEntryRequest = (identifier, comment) => fetch('/api/entry', {
   method: 'put',
   credentials: 'same-origin',
   body: JSON.stringify({
+    identifier: identifier,
     comment: comment
   })
 });

@@ -29,24 +29,35 @@ class StatusInnerContainer extends Component {
       return <p>Error</p>;
     }
 
-    const currentStatus = statuses.find(status => status.identifier === currentChallenge);
-
-    // TODO check if finished
-
     const {
-      entries
-    } = currentStatus;
+      entries,
+      target,
+    } = currentChallenge;
 
     const {
       on_schedule,
       schedule_limit,
-    } = currentStatus.progress;
+      active,
+      successful,
+    } = currentChallenge.progress;
+
+    if (active) {
+      return (
+        <div className={`status-component ${on_schedule ? 'status-component-good' : 'status-component-bad'}`}>
+          <Header as='h1'>{on_schedule ? 'You are ahead!' : 'You are behind'}</Header>
+          <RingComponent
+            target={schedule_limit}
+            entries={entries}
+          />
+        </div>
+      );
+    }
 
     return (
-      <div className={`status-component ${on_schedule ? 'status-component-good' : 'status-component-bad'}`}>
-        <Header as='h1'>{on_schedule ? 'You are ahead!' : 'You are behind'}</Header>
+      <div className={`status-component ${successful ? 'status-component-good' : 'status-component-bad'}`}>
+        <Header as='h1'>{successful ? 'The challenge was successful!' : 'The challenge was failed'}</Header>
         <RingComponent
-          target={schedule_limit}
+          target={target}
           entries={entries}
         />
       </div>

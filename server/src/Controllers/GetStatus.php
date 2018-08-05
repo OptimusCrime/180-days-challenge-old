@@ -8,21 +8,20 @@ class GetStatus
     public static function get(array $challenges)
     {
         $output = [];
-        foreach ($challenges as $index => $challenge) {
-            $output[] = static::challengeStatus($challenge, $index);
+        foreach ($challenges as $challenge) {
+            $output[] = static::challengeStatus($challenge);
         }
 
         return $output;
     }
 
-    private static function challengeStatus(array $challenge, $index)
+    private static function challengeStatus(array $challenge)
     {
         $entries = Entry
             ::where('identifier', $challenge['identifier'])
             ->count();
 
         return [
-            'challenge' => $index,
             'identifier' => $challenge['identifier'],
             'date_start' => $challenge['date_start'],
             'date_end' => $challenge['date_end'],
