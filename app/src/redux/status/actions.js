@@ -11,7 +11,7 @@ export const fetchInitialStatus = () => dispatch => {
 
   fetchStatusRequest()
     .then(response => response.json())
-    .then(data => dispatch({ type: STATUS_FETCH_FINISHED, data: data }));
+    .then(data => dispatch({ type: STATUS_FETCH_FINISHED, data: data, derp: 2 }));
 };
 
 export const fetchUpdatedStatus = () => dispatch => {

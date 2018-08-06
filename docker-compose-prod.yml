@@ -7,12 +7,12 @@ services:
   ###############################################
 
   app:
-    container_name: "180_app_dev"
+    container_name: "180_app_prod"
     depends_on:
       - server
     build:
       context: .
-      dockerfile: Dockerfile.app_dev
+      dockerfile: Dockerfile.app_prod
     ports:
       - "8001:80"
     links:

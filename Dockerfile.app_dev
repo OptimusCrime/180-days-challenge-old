@@ -2,7 +2,7 @@ FROM httpd:2.4
 
 ENV APP_DIR=/usr/local/apache2/htdocs
 
-COPY ./docker/config/app/app.conf /usr/local/apache2/conf/app.conf
+COPY ./docker/config/app/app_dev.conf /usr/local/apache2/conf/app.conf
 
 RUN apt-get update && \
     apt-get install -y curl  && \

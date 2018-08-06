@@ -5,6 +5,11 @@ APP_SERVICE_NAME = app
 
 all: start
 
+prod:
+	@docker-compose stop docker-compose-prod.yml
+	@docker-compose build -f docker-compose-prod.yml
+	@docker-compose up -d -f docker-compose-prod.yml
+
 bash:
 	@docker-compose run --rm $(SERVER_SERVICE_NAME) bash
 
