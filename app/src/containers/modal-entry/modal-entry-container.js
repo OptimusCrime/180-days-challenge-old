@@ -10,7 +10,7 @@ class ModalEntryContainer extends Component {
 
   handleKeyDown(event) {
     if (event.keyCode === ENTER_BUTTON) {
-      return this.props.updateEntry(event.target.value);
+      return this.props.updateEntry(this.props.currentChallenge.identifier, event.target.value);
     }
   }
 

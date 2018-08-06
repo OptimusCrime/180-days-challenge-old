@@ -35,6 +35,9 @@ class MenuContainer extends Component {
 
     const numberOfChallenges = challenges.length;
 
+    // .reverse() is mutating the original list
+    const challengesList = [...challenges].reverse();
+
     return (
       <Menu fixed='top' inverted>
         <Container>
@@ -48,7 +51,7 @@ class MenuContainer extends Component {
                 className='right'
               >
                 <Dropdown.Menu>
-                  {challenges.map((challenge, index) => (
+                  {challengesList.map((challenge, index) => (
                     <Dropdown.Item
                       onClick={() => this.props.changeCurrentChallenge(challenge.identifier, challenges)}
                       key={index}
@@ -56,9 +59,11 @@ class MenuContainer extends Component {
                       {challenge.identifier === currentChallenge.identifier ?
                         <strong>
                           {`Challenge #${numberOfChallenges - index}`}
+                          {currentChallenge.identifier}
                         </strong> :
                         <span>
                           {`Challenge #${numberOfChallenges - index}`}
+                          {currentChallenge.identifier}
                         </span>
                       }
                     </Dropdown.Item>
@@ -73,12 +78,16 @@ class MenuContainer extends Component {
               </Menu.Item>
               <React.Fragment>
                 {loggedIn ?
-                  <Menu.Item
-                    icon={true}
-                    onClick={this.props.toggleDisplayModalEntry}
-                  >
-                    <Icon name='plus' />
-                  </Menu.Item> :
+                  <React.Fragment>
+                    {currentChallenge.progress.active &&
+                      <Menu.Item
+                        icon={true}
+                        onClick={this.props.toggleDisplayModalEntry}
+                      >
+                        <Icon name='plus' />
+                      </Menu.Item>
+                    }
+                  </React.Fragment> :
                   <Menu.Item
                     icon={true}
                     onClick={this.props.toggleDisplayModalAuth}

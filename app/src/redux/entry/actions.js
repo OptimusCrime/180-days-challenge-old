@@ -35,6 +35,9 @@ export const fetchInitialEntry = () => dispatch => {
 export const updateEntry = (identifier, comment) => dispatch => {
   dispatch({ type: ENTRY_UPDATE_STARTED });
 
+  console.log('identifier = ', identifier);
+  console.log('comment = ', comment);
+
   addEntryRequest(identifier, comment)
     .then(response => {
       if (response.status !== HTTP_200_CODE) {
