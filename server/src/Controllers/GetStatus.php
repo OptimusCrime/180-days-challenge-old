@@ -48,7 +48,7 @@ class GetStatus
             'successful' => $challenge['active'] ? null : $entries >= $challenge['target'],
             'on_schedule' => $challenge['active'] ? $scheduleLimit <= $entries : null,
             'schedule_limit' => $challenge['active'] ? $scheduleLimit : null,
-            'tick' => $challenge['active'] ? static::calculateTick($challenge['date_start'], $challenge['date_end'], $challenge['target']) : null,
+            'tick' => static::calculateTick($challenge['date_start'], $challenge['date_end'], $challenge['target']),
             'days_since_start' => $challenge['active'] ? $daysSinceStart : null,
             'days_remaining' => $challenge['active'] ? static::daysBetween($challenge['date_end'], null) : null,
         ];

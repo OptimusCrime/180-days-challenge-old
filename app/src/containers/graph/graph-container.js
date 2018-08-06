@@ -12,38 +12,33 @@ class GraphContainer extends Component {
       statusFetched,
       entriesFetched,
 
-      entries,
-      date_start,
-      days_since_start,
-      tick
+      currentChallenge,
+      challenges,
     } = this.props;
 
     if (!statusFetched || !entriesFetched) {
       return null;
     }
 
+    const entries = challenges.find(c => c.identifier === currentChallenge.identifier).entries;
+
     return (
       <Container className='graph-container top-container'>
        <GraphComponent
+         challenge={currentChallenge}
          entries={entries}
-         date_start={date_start}
-         days_since_start={days_since_start}
-         tick={tick}
        />
       </Container>
     );
   }
 }
 
-const mapStateToProps = ({ status, entry }) => ({
+const mapStateToProps = ({ status, entry, display }) => ({
   statusFetched: status.fetchFinished,
   entriesFetched: entry.fetchFinished,
 
-  date_start: status.date_start,
-  days_since_start: status.days_since_start,
-  tick: status.tick,
-
-  entries: entry.entries,
+  currentChallenge: display.currentChallenge,
+  challenges: entry.entries,
 });
 
 export default connect(mapStateToProps)(GraphContainer);

@@ -53,17 +53,19 @@ class MenuContainer extends Component {
                 <Dropdown.Menu>
                   {challengesList.map((challenge, index) => (
                     <Dropdown.Item
-                      onClick={() => this.props.changeCurrentChallenge(challenge.identifier, challenges)}
+                      onClick={() => {
+                        this.props.changeCurrentChallenge(challenge.identifier, challenges);
+
+                        return true;
+                      }}
                       key={index}
                     >
                       {challenge.identifier === currentChallenge.identifier ?
                         <strong>
                           {`Challenge #${numberOfChallenges - index}`}
-                          {currentChallenge.identifier}
                         </strong> :
                         <span>
                           {`Challenge #${numberOfChallenges - index}`}
-                          {currentChallenge.identifier}
                         </span>
                       }
                     </Dropdown.Item>

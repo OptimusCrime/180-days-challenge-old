@@ -27,6 +27,10 @@ class SettingsParser
                     return;
                 }
 
+                if (isset($newSettings['settings']['challenges']) && isset($this->settings['settings']['challenges'])) {
+                  unset($this->settings['settings']['challenges']);
+                }
+
                 $this->settings = array_replace_recursive($this->settings, $newSettings);
             } catch (\Exception $e) {
             }

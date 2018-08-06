@@ -9,6 +9,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = (env, argv) => {
 
   const cssLoaders = argv.mode === 'development' ? [
+    'style-loader',
     'css-loader',
     'less-loader',
   ] : [
@@ -22,7 +23,7 @@ module.exports = (env, argv) => {
     chunks: true
   });
 
-  const plugins = argv.mode === 'development' ? [htmlPlugin] : [
+  const plugins = argv.mode === 'development' ? [ htmlPlugin ] : [
     new CleanWebpackPlugin([
       'dist/*',
     ], {
@@ -71,9 +72,7 @@ module.exports = (env, argv) => {
       ]
     },
     optimization: {
-      minimizer: [
-        argv.mode === 'development' ? null : new UglifyJsPlugin(),
-      ],
+      minimizer: argv.mode === 'development' ? [] : [ new UglifyJsPlugin() ],
       splitChunks: {
         cacheGroups: {
           vendors: {
